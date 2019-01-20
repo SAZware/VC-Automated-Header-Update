@@ -26,6 +26,7 @@ namespace VC_Automated_Header_Update
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string pattern = @"(\s\d+[.]\d*)\s";
         private List<string> jovialFileNames = new List<string>();
         public ObservableCollection<string> fileList = new ObservableCollection<string>();
 
@@ -103,6 +104,10 @@ namespace VC_Automated_Header_Update
             string fileContent = string.Empty;
             int cnt = 0;
 
+            Regex regex = new Regex(pattern);
+            CheckVersionNumber cvnClass = new CheckVersionNumber();
+            MatchEvaluator matchCheck = new MatchEvaluator(cvnClass.UpdateVerionNumber);
+
             if (jovialFileNames != null)
             {
                 foreach (string filePath in jovialFileNames)
@@ -113,7 +118,7 @@ namespace VC_Automated_Header_Update
                         reader.Close();
                     }
 
-                    fileContent = Regex.Replace(fileContent,"zzz", "in");
+                    fileContent = regex.Replace(fileContent,matchCheck);
 
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
