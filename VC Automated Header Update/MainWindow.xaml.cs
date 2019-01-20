@@ -26,9 +26,10 @@ namespace VC_Automated_Header_Update
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string pattern = @"(\s\d+[.]\d*)\s";
+        private const string pattern = @"(\s\d*[.]\d*)\s";
         private List<string> jovialFileNames = new List<string>();
         public ObservableCollection<string> fileList = new ObservableCollection<string>();
+        public string versionNum;
 
         public MainWindow()
         {
@@ -50,7 +51,7 @@ namespace VC_Automated_Header_Update
             {
 
                 openFileDialog.Multiselect = true;
-                openFileDialog.InitialDirectory = "C:\\Users\\14789\\Documents\\Test Folder";
+                openFileDialog.InitialDirectory = @"C:\Users\14789\Documents\Test Folder";
                 //Add in the other File types
                 openFileDialog.Filter = "jovial files (*.j73)|*.j73|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
@@ -115,16 +116,14 @@ namespace VC_Automated_Header_Update
                     using (StreamReader reader = new StreamReader(filePath))
                     {
                         fileContent = reader.ReadToEnd();
-                        reader.Close();
+                        fileContent = regex.Replace(fileContent, matchCheck, 1);
                     }
-
-                    fileContent = regex.Replace(fileContent,matchCheck);
 
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         writer.Write(fileContent);
                         writer.Write('\n'+ txtBoxDoc.Text);
-                        writer.Close();
+                        writer.Write(@"The Version num is: " + versionNum);
                         cnt++;
                     }
                 }
