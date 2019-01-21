@@ -29,7 +29,7 @@ namespace VC_Automated_Header_Update
         private const string pattern = @"(\s\d*[.]\d*)\s";
         private List<string> jovialFileNames = new List<string>();
         public ObservableCollection<HeaderInfo> headerInfo = new ObservableCollection<HeaderInfo>();
-        public float VersionNum { get; set; }
+        public static float VersionNum { get; set; }
 
         public MainWindow()
         {
@@ -104,6 +104,7 @@ namespace VC_Automated_Header_Update
             string fileContent = string.Empty;
             int cnt = 0;
 
+            headerInfo.Clear();
             Regex regex = new Regex(pattern);
             CheckVersionNumber cvnClass = new CheckVersionNumber();
             MatchEvaluator matchCheck = new MatchEvaluator(cvnClass.UpdateVerionNumber);
@@ -122,8 +123,8 @@ namespace VC_Automated_Header_Update
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         writer.Write(fileContent);
-                        writer.Write('\n' + txtBoxDoc.Text);
-                        writer.Write(@"The Version num is: " + VersionNum.ToString());
+                        writer.Write(Environment.NewLine + txtBoxDoc.Text);
+                        writer.Write(Environment.NewLine + "The Version num is: " + VersionNum.ToString());
                         cnt++;
                     }
                     headerInfo.Add(new HeaderInfo(System.IO.Path.GetFileName(filePath), (VersionNum - 1).ToString("F2"), VersionNum.ToString("F2")));

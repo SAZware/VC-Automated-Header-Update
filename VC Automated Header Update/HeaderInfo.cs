@@ -21,7 +21,7 @@ namespace VC_Automated_Header_Update
 
         public override string ToString()
         {
-            return String.Format("{0,-55}{1,10}/{2}", fileName, oldVersionNumber, newVersionNumber); 
+            return String.Format("{0,-55}{1}/{2}", fileName, oldVersionNumber, newVersionNumber); 
         }
     }
 }
