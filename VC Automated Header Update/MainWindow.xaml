@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VC_Automated_Header_Update"
         mc:Ignorable="d"
-        Title="Update CheckIn Files" Height="450" Width="900" Background="CadetBlue"  BorderThickness="2" BorderBrush="SlateGray">
+        Title="Update CheckIn Files" Height="450" Width="900" Background="LightSteelBlue"  BorderThickness="2" BorderBrush="SlateGray">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -41,17 +41,18 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
-                <Button x:Name="Run" Content="Run Update" HorizontalAlignment="Center" Margin="0,20,0,10" VerticalAlignment="Top" Width="75" Click="ButtonRun_Click"/>
+                <Button x:Name="Run" Content="Run Update" HorizontalAlignment="Center" Margin="0,20,0,10" VerticalAlignment="Top" Width="75" Click="ButtonRun_Click" BorderBrush="DarkBlue" BorderThickness="1"/>
                 <TextBlock x:Name="tbNumofFiles" VerticalAlignment="Bottom" Margin="0,10" HorizontalAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14" FontStyle="Italic"/>
                 <TextBlock x:Name="tbNumofCompltedFiles" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14" FontStyle="Italic"/>
+                <TextBlock x:Name="dateTime" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14" FontStyle="Italic"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1">
                 <Label Content="Comments" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,10" FontSize="14" FontWeight="Bold" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtBoxDoc" Height="75" FontSize="12" Grid.Column="1" Margin="0,0,50,50" ScrollViewer.VerticalScrollBarVisibility ="Visible" VerticalAlignment="Bottom" AcceptsReturn="True"/>
+                <TextBox x:Name="txtBoxDoc" Height="75" FontSize="12" Grid.Column="1" Margin="0,0,50,50" ScrollViewer.VerticalScrollBarVisibility ="Visible" VerticalAlignment="Bottom" AcceptsReturn="True" BorderBrush="DarkGray" BorderThickness="3"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <Label Content="Files Selected" Grid.Column="1" Margin="0,0,0,10"  Grid.Row="1" FontWeight="Bold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <ListView x:Name="listFileView" Grid.Column="1" Grid.Row="1" Height="100" Margin="0,0,50,0" ScrollViewer.VerticalScrollBarVisibility="Visible" FontFamily="Sitka Small" Background="LightGray"/>
+                <ListView x:Name="listFileView" Grid.Column="1" Grid.Row="1" Height="100" Margin="0,0,50,0" ScrollViewer.VerticalScrollBarVisibility="Visible" FontFamily="Sitka Small" Background="LightGray" BorderBrush="Black" BorderThickness="2"/>
             </StackPanel>
         </Grid>
     </DockPanel>

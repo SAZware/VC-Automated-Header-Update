@@ -28,13 +28,13 @@ namespace VC_Automated_Header_Update
     {
         private const string pattern = @"(\s\d*[.]\d*)\s";
         private List<string> jovialFileNames = new List<string>();
-        public ObservableCollection<string> fileList = new ObservableCollection<string>();
-        public string versionNum;
+        public ObservableCollection<HeaderInfo> headerInfo = new ObservableCollection<HeaderInfo>();
+        public float VersionNum { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            listFileView.ItemsSource = fileList;
+            listFileView.ItemsSource = headerInfo;
         }
 
         private void MenuExit_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace VC_Automated_Header_Update
         private void MenuOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            fileList.Clear();
+            headerInfo.Clear();
 
             try
             {
@@ -64,7 +64,6 @@ namespace VC_Automated_Header_Update
                     {
                         try
                         {
-                            fileList.Add(file);
                             jovialFileNames.Add(file);
                         }
                         catch (SecurityException ex)
@@ -108,6 +107,7 @@ namespace VC_Automated_Header_Update
             Regex regex = new Regex(pattern);
             CheckVersionNumber cvnClass = new CheckVersionNumber();
             MatchEvaluator matchCheck = new MatchEvaluator(cvnClass.UpdateVerionNumber);
+            dateTime.Text = DateTime.Now.ToString();
 
             if (jovialFileNames != null)
             {
@@ -122,15 +122,16 @@ namespace VC_Automated_Header_Update
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         writer.Write(fileContent);
-                        writer.Write('\n'+ txtBoxDoc.Text);
-                        writer.Write(@"The Version num is: " + versionNum);
+                        writer.Write('\n' + txtBoxDoc.Text);
+                        writer.Write(@"The Version num is: " + VersionNum.ToString());
                         cnt++;
                     }
+                    headerInfo.Add(new HeaderInfo(System.IO.Path.GetFileName(filePath), (VersionNum - 1).ToString("F2"), VersionNum.ToString("F2")));
                 }
             }
 
             tbNumofCompltedFiles.Text = "# of Files Updated = " + cnt.ToString();
-        
+
         }
     }
 }
